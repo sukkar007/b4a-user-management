@@ -1,7 +1,55 @@
-## Parse PHP SDK Changelog
+# [2.4.0](https://github.com/parse-community/parse-php-sdk/compare/2.3.2...2.4.0) (2024-06-27)
 
-### master
-[Full Changelog](https://github.com/parse-community/parse-php-sdk/compare/1.6.0...master)
+
+### Features
+
+* Add support for PHP 8.3 ([#520](https://github.com/parse-community/parse-php-sdk/issues/520)) ([0a4efd8](https://github.com/parse-community/parse-php-sdk/commit/0a4efd8fd0a0eb55aed7c1e61ba47888ab6ef28b))
+
+## [2.3.2](https://github.com/parse-community/parse-php-sdk/compare/2.3.1...2.3.2) (2023-05-13)
+
+
+### Bug Fixes
+
+* Prevent `query->count` from changing query internals ([#511](https://github.com/parse-community/parse-php-sdk/issues/511)) ([26db002](https://github.com/parse-community/parse-php-sdk/commit/26db002811c4e6a8f87649cbc84ca3fa91345a85))
+
+## [2.3.1](https://github.com/parse-community/parse-php-sdk/compare/2.3.0...2.3.1) (2023-05-13)
+
+
+### Bug Fixes
+
+* Prevent `query->equalTo` from overriding other conditions ([#510](https://github.com/parse-community/parse-php-sdk/issues/510)) ([0fc3d8f](https://github.com/parse-community/parse-php-sdk/commit/0fc3d8f630ba918689f2901e96c631d761561b74))
+
+# [2.3.0](https://github.com/parse-community/parse-php-sdk/compare/2.2.0...2.3.0) (2023-05-13)
+
+
+### Features
+
+* Add query methods `fetchWithInclude` and `fetchAllWithInclude` ([#512](https://github.com/parse-community/parse-php-sdk/issues/512)) ([0570f15](https://github.com/parse-community/parse-php-sdk/commit/0570f157a5e4efb2310b7df44c25ff246077589a))
+
+# [2.2.0](https://github.com/parse-community/parse-php-sdk/compare/2.1.0...2.2.0) (2023-05-13)
+
+
+### Features
+
+* Allow http options to be passed into `ParseClient` ([#513](https://github.com/parse-community/parse-php-sdk/issues/513)) ([ee2a5fa](https://github.com/parse-community/parse-php-sdk/commit/ee2a5fa389d553e73e483130647fd93cf187d142))
+
+# [2.1.0](https://github.com/parse-community/parse-php-sdk/compare/2.0.0...2.1.0) (2023-04-29)
+
+
+### Features
+
+* Add `ParseUser::logInAs` method ([#486](https://github.com/parse-community/parse-php-sdk/issues/486)) ([5b4e102](https://github.com/parse-community/parse-php-sdk/commit/5b4e102e4513e82cca1ddcce9c2158f6187239c8))
+
+# [2.0.0](https://github.com/parse-community/parse-php-sdk/compare/1.6.0...2.0.0) (2023-04-27)
+
+### Features
+
+* Add support for PHP 8.1, 8.2 ([#489](https://github.com/parse-community/parse-php-sdk/pull/489)) ([d5783e3](https://github.com/parse-community/parse-php-sdk/commit/d5783e3440a2baf9bcc65f829ec107b91ff4c037))
+* Add support for `object->exists()` ([#453](https://github.com/parse-community/parse-php-sdk/pull/453)) ([eada867](https://github.com/parse-community/parse-php-sdk/commit/eada867bfa72df4393b5344e97bcb188c4f6ea4f))
+
+### BREAKING CHANGES
+
+- This release requires PHP version >= 8.1.0 ([#489](https://github.com/parse-community/parse-php-sdk/pull/489)) ([d5783e3](https://github.com/parse-community/parse-php-sdk/commit/d5783e3440a2baf9bcc65f829ec107b91ff4c037))
 
 ### 1.6.0
 [See the diff between 1.5.1 and 1.6.0](https://github.com/parse-community/parse-php-sdk/compare/1.5.1...1.6.0)

@@ -78,8 +78,8 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{ route('login.submit') }}">
-                            @csrf
+                        <form method="GET" action="{{ route('login.submit') }}">
+                            <!-- لا نحتاج @csrf مع GET -->
 
                             <div class="mb-3">
                                 <label for="username" class="form-label">

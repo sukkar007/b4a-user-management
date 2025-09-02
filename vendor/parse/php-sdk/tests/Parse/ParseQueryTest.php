@@ -946,6 +946,30 @@ class ParseQueryTest extends TestCase
         $query->count();
     }
 
+    /**
+     * @group query-equalTo-Zero-Count
+     */
+    public function testEqualToCountZero()
+    {
+        Helper::clearClass('BoxedNumber');
+        $this->saveObjects(
+            5,
+            function ($i) {
+                $boxedNumber = new ParseObject('BoxedNumber');
+                $boxedNumber->set('Number', 0);
+                return $boxedNumber;
+            }
+        );
+        $query = new ParseQuery('BoxedNumber');
+        $query->equalTo('Number', 0);
+        $result = $query->count();
+        $this->assertEquals(
+            5,
+            $result,
+            'Did not return correct number of objects.'
+        );
+    }
+
     public function testOrderByAscendingNumber()
     {
         Helper::clearClass('BoxedNumber');
@@ -2578,7 +2602,6 @@ class ParseQueryTest extends TestCase
             Helper::$restKey,
             Helper::$masterKey,
             false,
-            Helper::$accountKey
         );
         ParseClient::setServerURL('http://localhost:1337', 'parse');
 
@@ -2602,8 +2625,8 @@ class ParseQueryTest extends TestCase
     {
         $query = new ParseQuery('TestObject');
         $query->_setConditions([
-            [
-                'key'  => 'value'
+            'where' => [
+                'key'   => 'value'
             ]
         ]);
 
@@ -2631,8 +2654,8 @@ class ParseQueryTest extends TestCase
         $query->select(['select1','select2']);
         $query->skip(24);
 
-        // sets count = 1 and limit = 0
-        $query->count();
+        // sets count = 1
+        $query->withCount();
         // reset limit up to 42
         $query->limit(42);
 
@@ -2640,7 +2663,9 @@ class ParseQueryTest extends TestCase
 
         $this->assertEquals([
             'where' => [
-                'key'   => 'value',
+                'key'   => [
+                    '$eq' => 'value',
+                ],
                 'key2'  => [
                     '$ne'   => 'value2',
                 ],
@@ -2670,6 +2695,45 @@ class ParseQueryTest extends TestCase
         );
     }
 
+    /**
+     * @group query-count-conditions
+     */
+    public function testCountDoesNotOverrideConditions()
+    {
+        $obj = new ParseObject('TestObject');
+        $obj->set('name', 'John');
+        $obj->set('country', 'US');
+        $obj->save();
+
+        $obj = new ParseObject('TestObject');
+        $obj->set('name', 'Bob');
+        $obj->set('country', 'US');
+        $obj->save();
+
+        $obj = new ParseObject('TestObject');
+        $obj->set('name', 'Mike');
+        $obj->set('country', 'CA');
+        $obj->save();
+
+        $query = new ParseQuery('TestObject');
+        $query->equalTo('country', 'US');
+        $query->limit(1);
+        $count = $query->count();
+        $results = $query->find();
+
+        $this->assertEquals(1, count($results));
+        $this->assertEquals(2, $count);
+
+        $this->assertSame([
+            'where' => [
+                'country' => [
+                    '$eq' => 'US'
+                ]
+            ],
+            'limit' => 1,
+        ], $query->_getOptions());
+    }
+
     public function testNotArrayConditions()
     {
         $this->expectException(
@@ -2695,5 +2759,56 @@ class ParseQueryTest extends TestCase
         $query->_setConditions([
             'unrecognized'  => 1
         ]);
+    }
+
+    /**
+     * @group query-equalTo-conditions
+     */
+    public function testEqualToWithSameKeyDoesNotOverrideOtherConditions()
+    {
+        $baz = new ParseObject('TestObject');
+        $baz->setArray('fooStack', [
+            [
+                'status' => 'baz'
+            ],
+            [
+                'status' => 'bar'
+            ]
+        ]);
+        $baz->save();
+
+        $bar = new ParseObject('TestObject');
+        $bar->setArray('fooStack', [
+            [
+                'status' => 'bar'
+            ]
+        ]);
+        $bar->save();
+
+        $qux = new ParseObject('TestObject');
+        $qux->setArray('fooStack', [
+            [
+                'status' => 'bar',
+            ],
+            [
+                'status' => 'qux'
+            ]
+        ]);
+        $qux->save();
+
+        $query = new ParseQuery('TestObject');
+        $query->notEqualTo('fooStack.status', 'baz');
+        $query->equalTo('fooStack.status', 'bar');
+
+        $this->assertEquals(2, $query->count(true));
+
+        $this->assertSame([
+            'where' => [
+                'fooStack.status'   => [
+                    '$ne'   => 'baz',
+                    '$eq' => 'bar',
+                ]
+            ],
+        ], $query->_getOptions());
     }
 }

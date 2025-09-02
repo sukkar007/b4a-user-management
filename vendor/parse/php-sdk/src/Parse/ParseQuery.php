@@ -140,7 +140,7 @@ class ParseQuery
      */
     public function equalTo($key, $value)
     {
-        $this->where[$key] = $value;
+        $this->addCondition($key, '$eq', $value);
 
         return $this;
     }
@@ -570,7 +570,7 @@ class ParseQuery
             $queryOptions['where'] = json_encode($queryOptions['where']);
         }
 
-        return http_build_query($queryOptions, null, '&');
+        return http_build_query($queryOptions, '', '&');
     }
 
     /**
@@ -586,9 +586,10 @@ class ParseQuery
         if (ParseUser::getCurrentUser()) {
             $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
         }
-        $this->limit = 0;
-        $this->count = 1;
-        $queryString = $this->buildQueryString($this->_getOptions());
+        $queryParams = $this->_getOptions();
+        $queryParams['limit'] = 0;
+        $queryParams['count'] = 1;
+        $queryString = $this->buildQueryString($queryParams);
         $result = ParseClient::_request(
             'GET',
             'classes/'.$this->className.'?'.$queryString,
@@ -672,7 +673,9 @@ class ParseQuery
             null,
             true
         );
-
+        if (!isset($result['results'])) {
+            return [];
+        }
         return $result['results'];
     }
 

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Auth;
+use App\Providers\ParseUserProvider;
 use Parse\ParseClient;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,13 +28,11 @@ class AppServiceProvider extends ServiceProvider
             env('PARSE_REST_KEY'),
             env('PARSE_MASTER_KEY')
         );
+        ParseClient::setServerURL(env('PARSE_SERVER_URL'), '/');
         
-        ParseClient::setServerURL(env('PARSE_SERVER_URL'), '/parse');
-
         // تسجيل مزود المصادقة المخصص
-        Auth::provider('parse', function ($app, array $config) {
+        Auth::provider('custom', function ($app, array $config) {
             return new ParseUserProvider();
         });
     }
 }
-

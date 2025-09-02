@@ -121,8 +121,8 @@ class ParseQueryAggregateTest extends TestCase
     public function testAggregateGroupQuery()
     {
         $pipeline = [
-            'group' => [
-                'objectId' => '$name'
+            '$group' => [
+                '_id' => '$name'
             ]
         ];
         $this->loadObjects();
@@ -135,8 +135,8 @@ class ParseQueryAggregateTest extends TestCase
     public function testAggregateGroupClassNotExistQuery()
     {
         $pipeline = [
-            'group' => [
-                'objectId' => '$name'
+            '$group' => [
+                '_id' => '$name'
             ]
         ];
         $this->loadObjects();
@@ -149,8 +149,8 @@ class ParseQueryAggregateTest extends TestCase
     public function testAggregateGroupFieldNotExistQuery()
     {
         $pipeline = [
-            'group' => [
-                'objectId' => '$unknown'
+            '$group' => [
+                '_id' => '$unknown'
             ]
         ];
         $this->loadObjects();
@@ -163,7 +163,7 @@ class ParseQueryAggregateTest extends TestCase
     public function testAggregateMatchQuery()
     {
         $pipeline = [
-            'match' => [
+            '$match' => [
                 'score' => [ '$gt' => 15 ]
             ]
         ];
@@ -178,7 +178,7 @@ class ParseQueryAggregateTest extends TestCase
     public function testAggregateProjectQuery()
     {
         $pipeline = [
-            'project' => [
+            '$project' => [
                 'name' => 1
             ]
         ];
@@ -195,17 +195,18 @@ class ParseQueryAggregateTest extends TestCase
 
     public function testAggregatePipelineInvalid()
     {
+        $this->expectException(
+            'Parse\ParseException',
+            "Invalid aggregate state 'unknown'",
+            102
+        );
         $pipeline = [
             'unknown' => []
         ];
         $this->loadObjects();
         $query = new ParseQuery('TestObject');
-        $this->expectException(
-            'Parse\ParseException',
-            'Invalid parameter for query: unknown',
-            102
-        );
         $results = $query->aggregate($pipeline);
+        $this->assertEquals(0, count($results));
     }
 
     public function testAggregateGroupInvalid()
@@ -262,7 +263,7 @@ class ParseQueryAggregateTest extends TestCase
         $user3->signUp();
 
         $pipeline = [
-            'match' => [
+            '$match' => [
                 'score' => [ '$gt' => 15 ]
             ]
         ];

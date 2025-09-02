@@ -1,273 +1,66 @@
-# 🚀 نظام إدارة المستخدمين Laravel + Back4App
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-نظام إدارة شامل ومتقدم للمستخدمين باستخدام Laravel كخلفية (Backend) و Back4App كقاعدة بيانات سحابية، مع واجهة إدارية احترافية ومتجاوبة.
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-## ✨ الميزات الرئيسية
+## About Laravel
 
-### 🔐 نظام المصادقة
-- **تسجيل دخول آمن** باستخدام Back4App
-- **التحقق من الأدوار** (Admin/User)
-- **جلسات محمية** مع Laravel Auth
-- **تشفير كلمات المرور** عبر Back4App
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-### 👥 إدارة المستخدمين
-- **عرض قائمة شاملة** للمستخدمين مع ترقيم ذكي
-- **بحث متقدم** في اسم المستخدم والبريد والاسم الكامل
-- **فلترة متطورة** حسب الجنس والدور وحالة VIP والبلد
-- **عرض تفاصيل كاملة** لكل مستخدم مع ملفه الشخصي
-- **إضافة مستخدمين جدد** مع رفع الصور
-- **تعديل البيانات** مع معاينة الصور قبل الرفع
-- **حذف/استعادة المستخدمين** (Soft Delete)
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-### 📊 الإحصائيات والتقارير
-- **لوحة إحصائيات شاملة** مع رسوم بيانية تفاعلية
-- **رسوم بيانية متنوعة**: خطية، دائرية، أعمدة، منطقة
-- **إحصائيات مفصلة**:
-  - إجمالي المستخدمين والنشطين
-  - توزيع الجنس والأعمار
-  - أنواع VIP ونسبها
-  - أكثر البلدان نشاطاً
-  - الإحصائيات المالية (عملات، ماس، نقاط)
-- **تصدير الإحصائيات** إلى CSV
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-### ⚡ العمليات المجمعة (Bulk Actions)
-- **إرسال إشعارات جماعية** مع أنواع مختلفة
-- **تحديث حالة VIP** للمجموعات
-- **إضافة عملات وماس** بكميات محددة
-- **تغيير أدوار المستخدمين** (Admin/User)
-- **إخفاء/إظهار الحسابات** المجمع
-- **تأكيد الصور** للمجموعات
-- **تصدير البيانات** بصيغ متعددة (CSV, Excel, JSON)
+## Learning Laravel
 
-### 🎨 واجهة المستخدم
-- **تصميم متجاوب 100%** يعمل على جميع الأجهزة
-- **دعم كامل للغة العربية** مع RTL
-- **ألوان متدرجة وجميلة** مع تأثيرات بصرية
-- **أيقونات Font Awesome** معبرة
-- **رسوم متحركة** وتأثيرات hover
-- **واجهة سهلة الاستخدام** مع تنقل منطقي
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-## 🛠️ التقنيات المستخدمة
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-### Backend:
-- **Laravel 11.x** - إطار العمل الرئيسي
-- **Parse PHP SDK** - للاتصال مع Back4App
-- **PHP 8.1+** - لغة البرمجة
-- **Composer** - إدارة الحزم
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-### Frontend:
-- **Bootstrap 5.3** - إطار العمل للتصميم
-- **Chart.js** - للرسوم البيانية التفاعلية
-- **Font Awesome** - للأيقونات
-- **JavaScript ES6+** - للتفاعل
-- **CSS3** - للتصميم المتقدم
+## Laravel Sponsors
 
-### قاعدة البيانات:
-- **Back4App** - قاعدة بيانات سحابية
-- **Parse Server** - خادم قاعدة البيانات
-- **MongoDB** - قاعدة البيانات الأساسية
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-## 🚀 التثبيت السريع
+### Premium Partners
 
-### 1. متطلبات النظام:
-```bash
-PHP >= 8.1
-Composer
-Node.js >= 18.x
-حساب Back4App نشط
-```
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[WebReinvent](https://webreinvent.com/)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[Jump24](https://jump24.co.uk)**
+- **[Redberry](https://redberry.international/laravel/)**
+- **[Active Logic](https://activelogic.com)**
+- **[byte5](https://byte5.de)**
+- **[OP.GG](https://op.gg)**
 
-### 2. تحميل المشروع:
-```bash
-git clone https://github.com/your-username/b4a-user-management.git
-cd b4a-user-management
-composer install
-```
+## Contributing
 
-### 3. إعداد متغيرات البيئة:
-```bash
-cp .env.example .env
-```
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-ثم حدث ملف `.env` بمفاتيح Back4App:
-```env
-PARSE_APP_ID=your_application_id
-PARSE_REST_KEY=your_rest_api_key
-PARSE_MASTER_KEY=your_master_key
-PARSE_SERVER_URL=https://parseapi.back4app.com
-```
+## Code of Conduct
 
-### 4. تشغيل النظام:
-```bash
-php artisan key:generate
-php artisan config:clear
-php artisan serve
-```
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-### 5. الوصول:
-- **الرابط**: http://localhost:8000
-- **تسجيل الدخول**: /login
-- **لوحة التحكم**: /admin/dashboard
+## Security Vulnerabilities
 
-## 📁 هيكل المشروع
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-```
-b4a-user-management/
-├── app/
-│   ├── Http/Controllers/
-│   │   ├── Admin/
-│   │   │   └── UserController.php          # تحكم في المستخدمين
-│   │   └── Auth/
-│   │       └── LoginController.php         # تحكم في تسجيل الدخول
-│   ├── Models/
-│   │   └── ParseUser.php                   # نموذج المستخدم
-│   └── Providers/
-│       ├── AppServiceProvider.php          # مزود الخدمات الرئيسي
-│       └── ParseUserProvider.php           # مزود مصادقة Parse
-├── resources/views/
-│   ├── layouts/
-│   │   └── admin.blade.php                 # تخطيط لوحة التحكم
-│   ├── admin/
-│   │   ├── dashboard.blade.php             # لوحة التحكم الرئيسية
-│   │   └── users/
-│   │       ├── index.blade.php             # قائمة المستخدمين
-│   │       ├── show.blade.php              # تفاصيل المستخدم
-│   │       ├── create.blade.php            # إضافة مستخدم
-│   │       ├── edit.blade.php              # تعديل مستخدم
-│   │       ├── statistics.blade.php       # الإحصائيات
-│   │       └── bulk-actions.blade.php     # العمليات المجمعة
-│   └── auth/
-│       └── login.blade.php                 # صفحة تسجيل الدخول
-├── routes/
-│   └── web.php                             # مسارات الويب
-├── config/
-│   └── auth.php                            # إعدادات المصادقة
-└── bootstrap/
-    └── app.php                             # إعدادات التطبيق
-```
+## License
 
-## 🔧 إعداد Back4App
-
-### 1. إنشاء تطبيق جديد:
-1. سجل دخولك إلى [Back4App](https://www.back4app.com/)
-2. أنشئ تطبيق جديد
-3. احصل على مفاتيح API من Settings > App Keys
-
-### 2. إعداد فئة المستخدم:
-في Back4App Dashboard، أضف الحقول التالية لفئة `_User`:
-- `role` (String) - للأدوار (admin/user)
-- `fullName` (String) - الاسم الكامل
-- `avatar` (File) - الصورة الشخصية
-- `cover` (File) - صورة الغلاف
-- `bio` (String) - النبذة الشخصية
-- `country` (String) - البلد
-- `city` (String) - المدينة
-- `gender` (String) - الجنس
-- `age` (Number) - العمر
-- `coins` (Number) - العملات
-- `diamonds` (Number) - الماس
-- `userPoints` (Number) - النقاط
-- `isVip` (Boolean) - حالة VIP
-- `normalVip` (Boolean) - VIP عادي
-- `superVip` (Boolean) - VIP سوبر
-- `diamondVip` (Boolean) - VIP ماسي
-- `accountHidden` (Boolean) - حساب مخفي
-- `emailVerified` (Boolean) - بريد مؤكد
-
-### 3. إنشاء مستخدم admin:
-```javascript
-// في Back4App Cloud Code أو Console
-var user = new Parse.User();
-user.set("username", "admin");
-user.set("password", "Password123!");
-user.set("email", "admin@example.com");
-user.set("role", "admin");
-user.set("fullName", "المدير العام");
-user.signUp();
-```
-
-## 🎯 الميزات المتقدمة
-
-### 1. نظام البحث الذكي:
-- بحث في متعدد الحقول
-- فلترة حسب معايير متعددة
-- ترقيم ذكي مع عدد نتائج قابل للتخصيص
-
-### 2. إدارة الصور:
-- رفع صور متعددة (شخصية وغلاف)
-- معاينة فورية قبل الرفع
-- تحقق من حجم ونوع الملف
-- ضغط تلقائي للصور
-
-### 3. العمليات المجمعة المتقدمة:
-- اختيار مستخدمين بمعايير مختلفة
-- معاينة شاملة قبل التنفيذ
-- تتبع التقدم في الوقت الفعلي
-- تقارير مفصلة للنتائج
-
-### 4. الإحصائيات التفاعلية:
-- رسوم بيانية قابلة للتخصيص
-- تحديث البيانات في الوقت الفعلي
-- تصدير بصيغ متعددة
-- مقارنات زمنية
-
-## 🔒 الأمان
-
-### ميزات الأمان المدمجة:
-- **تشفير كلمات المرور** عبر Back4App
-- **حماية CSRF** في جميع النماذج
-- **التحقق من الأدوار** في كل طلب
-- **تنظيف البيانات** قبل المعالجة
-- **حماية من SQL Injection** (Parse تتولى ذلك)
-- **جلسات آمنة** مع انتهاء صلاحية
-
-### أفضل الممارسات:
-- استخدام Master Key للعمليات الحساسة فقط
-- التحقق من صحة البيانات في الخادم والعميل
-- تسجيل العمليات المهمة
-- إخفاء المعلومات الحساسة في الواجهة
-
-## 📈 الأداء
-
-### تحسينات الأداء:
-- **تحميل البيانات بالصفحات** (Pagination)
-- **فهرسة البحث** في Back4App
-- **ضغط الصور** تلقائياً
-- **تخزين مؤقت للإحصائيات**
-- **تحميل البيانات عند الطلب** (Lazy Loading)
-
-## 🤝 المساهمة
-
-نرحب بمساهماتكم! يمكنكم:
-- الإبلاغ عن الأخطاء
-- اقتراح ميزات جديدة
-- تحسين الكود الموجود
-- إضافة وثائق أفضل
-
-### خطوات المساهمة:
-1. Fork المشروع
-2. إنشاء فرع للميزة الجديدة
-3. تطبيق التغييرات مع الاختبارات
-4. إرسال Pull Request
-
-## 📄 الترخيص
-
-هذا المشروع مرخص تحت [رخصة MIT](LICENSE). يمكنكم:
-- استخدام المشروع تجارياً
-- تعديل الكود حسب احتياجاتكم
-- توزيع المشروع مع التعديلات
-- بيع المشروع أو الحلول المبنية عليه
-
-## 🙏 شكر وتقدير
-
-شكر خاص لـ:
-- **Laravel Team** - لإطار العمل الرائع
-- **Parse Community** - للـ SDK المتميز
-- **Back4App** - للخدمة السحابية الموثوقة
-- **Bootstrap Team** - لإطار التصميم
-- **Chart.js Team** - للرسوم البيانية التفاعلية
-
----
-
-**تم تطوير هذا المشروع بعناية فائقة ليكون حلاً شاملاً ومتقدماً لإدارة المستخدمين. نتمنى أن يكون مفيداً لمشاريعكم! 🚀**
-
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

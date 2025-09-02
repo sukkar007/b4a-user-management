@@ -307,6 +307,30 @@ class ParseObject implements Encodable
     }
 
     /**
+     * Returns true if this object exists on the Server
+     *
+     * @param bool $useMasterKey Whether to use the Master Key.
+     *
+     * @return bool
+     */
+    public function exists($useMasterKey = false)
+    {
+        if (!$this->objectId) {
+            return false;
+        }
+        try {
+            $query = new ParseQuery($this->className);
+            $query->get($this->objectId, $useMasterKey);
+            return true;
+        } catch (Exception $e) {
+            if ($e->getCode() === 101) {
+                return false;
+            }
+            throw $e;
+        }
+    }
+
+    /**
      * Validate and set a value for an object key.
      *
      * @param string $key   Key to set a value for on the object.
@@ -512,7 +536,9 @@ class ParseObject implements Encodable
     {
         if (isset(self::$registeredSubclasses[$className])) {
             return new self::$registeredSubclasses[$className](
-                $className, $objectId, $isPointer
+                $className,
+                $objectId,
+                $isPointer
             );
         } else {
             return new self($className, $objectId, $isPointer);
@@ -548,6 +574,33 @@ class ParseObject implements Encodable
      * Fetch an array of Parse objects from the server.
      *
      * @param array $objects      The ParseObjects to fetch
+     * @param array $includeKeys  The nested ParseObjects to fetch
+     * @param bool  $useMasterKey Whether to override ACLs
+     *
+     * @return ParseObject Returns self, so you can chain this call.
+     */
+    public function fetchWithInclude(array $includeKeys, $useMasterKey = false)
+    {
+        $sessionToken = null;
+        if (ParseUser::getCurrentUser()) {
+            $sessionToken = ParseUser::getCurrentUser()->getSessionToken();
+        }
+        $response = ParseClient::_request(
+            'GET',
+            'classes/'.$this->className.'/'.$this->objectId.'?include='.implode(',', $includeKeys),
+            $sessionToken,
+            null,
+            $useMasterKey
+        );
+        $this->_mergeAfterFetch($response);
+
+        return $this;
+    }
+
+    /**
+     * Fetch an array of Parse objects from the server.
+     *
+     * @param array $objects      The ParseObjects to fetch
      * @param bool  $useMasterKey Whether to override ACLs
      *
      * @return array
@@ -562,6 +615,31 @@ class ParseObject implements Encodable
         $query = new ParseQuery($className);
         $query->containedIn('objectId', $objectIds);
         $query->limit(count($objectIds));
+        $results = $query->find($useMasterKey);
+
+        return static::updateWithFetchedResults($objects, $results);
+    }
+
+    /**
+     * Fetch an array of Parse Objects from the server with nested Parse Objects.
+     *
+     * @param array $objects      The ParseObjects to fetch
+     * @param mixed $includeKeys  The nested ParseObjects to fetch
+     * @param bool  $useMasterKey Whether to override ACLs
+     *
+     * @return array
+     */
+    public static function fetchAllWithInclude(array $objects, $includeKeys, $useMasterKey = false)
+    {
+        $objectIds = static::toObjectIdArray($objects);
+        if (!count($objectIds)) {
+            return $objects;
+        }
+        $className = $objects[0]->getClassName();
+        $query = new ParseQuery($className);
+        $query->containedIn('objectId', $objectIds);
+        $query->limit(count($objectIds));
+        $query->includeKey($includeKeys);
         $results = $query->find($useMasterKey);
 
         return static::updateWithFetchedResults($objects, $results);
@@ -1522,7 +1600,7 @@ class ParseObject implements Encodable
     /**
      * Check whether there is a subclass registered for a given parse class.
      *
-     * @param $parseClassName
+     * @param string $parseClassName
      *
      * @return bool
      */
@@ -1535,7 +1613,7 @@ class ParseObject implements Encodable
      * Get the registered subclass for a Parse class, or a generic ParseObject
      * if no subclass is registered.
      *
-     * @param $parseClassName
+     * @param string $parseClassName
      *
      * @return ParseObject
      */

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae36439628afa1acd38ea780334ad68a",
+    "content-hash": "3eb0ba67b913a3e8e8ab237ed81594fd",
     "packages": [
         {
             "name": "brick/math",
@@ -2394,28 +2394,29 @@
         },
         {
             "name": "parse/php-sdk",
-            "version": "1.6.0",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/parse-community/parse-php-sdk.git",
-                "reference": "6a8d8c8ba4f1189c7da1fbb611bfe3093062b219"
+                "reference": "081690dd822629933b27b8fa6b8adf143828a48d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/parse-community/parse-php-sdk/zipball/6a8d8c8ba4f1189c7da1fbb611bfe3093062b219",
-                "reference": "6a8d8c8ba4f1189c7da1fbb611bfe3093062b219",
+                "url": "https://api.github.com/repos/parse-community/parse-php-sdk/zipball/081690dd822629933b27b8fa6b8adf143828a48d",
+                "reference": "081690dd822629933b27b8fa6b8adf143828a48d",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "ext-json": "*",
-                "php": ">= 7.1"
+                "php": ">=8.1 <8.4"
             },
             "require-dev": {
                 "jms/serializer": "1.7.1",
-                "phpdocumentor/phpdocumentor": "~2.9",
-                "phpunit/phpunit": "^7",
-                "squizlabs/php_codesniffer": "^3.0.1"
+                "nikic/php-parser": "4.15",
+                "phpdocumentor/phpdocumentor": "3.0.0",
+                "phpunit/phpunit": "10.1.1",
+                "squizlabs/php_codesniffer": "3.7.2"
             },
             "type": "library",
             "autoload": {
@@ -2441,9 +2442,19 @@
             ],
             "support": {
                 "issues": "https://github.com/parse-community/parse-php-sdk/issues",
-                "source": "https://github.com/parse-community/parse-php-sdk/tree/1.6.0"
+                "source": "https://github.com/parse-community/parse-php-sdk/tree/2.4.0"
             },
-            "time": "2019-08-17T18:37:33+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/parse-community",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/parse-server",
+                    "type": "open_collective"
+                }
+            ],
+            "time": "2024-06-27T23:11:17+00:00"
         },
         {
             "name": "phpoption/phpoption",

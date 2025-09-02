@@ -16,6 +16,8 @@ use Parse\ParseUser;
 
 use PHPUnit\Framework\TestCase;
 
+defined('CURLOPT_PINNEDPUBLICKEY') || define('CURLOPT_PINNEDPUBLICKEY', 10230);
+
 class ParseClientTest extends TestCase
 {
     public static function setUpBeforeClass() : void
@@ -35,6 +37,9 @@ class ParseClientTest extends TestCase
 
         // unset CA file
         ParseClient::setCAFile(null);
+
+        // unset http options
+        ParseClient::setHttpOptions(null);
     }
 
     /**
@@ -60,33 +65,6 @@ class ParseClientTest extends TestCase
     }
 
     /**
-     * @group client-not-initialized
-     */
-    public function testAppNotNotInitialized()
-    {
-        $this->expectException(
-            '\Exception',
-            'You must call ParseClient::initialize(..., $accountKey) before making any app requests. '.
-            'Your account key must not be null or empty.'
-        );
-
-        ParseClient::initialize(
-            null,
-            null,
-            null
-        );
-
-        ParseClient::_request(
-            '',
-            '',
-            null,
-            null,
-            false,
-            true
-        );
-    }
-
-    /**
      * @group client-init
      */
     public function testInitialize()
@@ -106,7 +84,6 @@ class ParseClientTest extends TestCase
             Helper::$restKey,
             Helper::$masterKey,
             true,
-            Helper::$accountKey
         );
 
         // verify these classes are now registered
@@ -133,7 +110,6 @@ class ParseClientTest extends TestCase
             Helper::$restKey,
             Helper::$masterKey,
             true,
-            Helper::$accountKey
         );
 
         $storage = ParseClient::getStorage();
@@ -164,7 +140,6 @@ class ParseClientTest extends TestCase
             Helper::$restKey,
             Helper::$masterKey,
             true,
-            Helper::$accountKey
         );
 
         $storage = ParseClient::getStorage();
@@ -351,6 +326,10 @@ class ParseClientTest extends TestCase
      */
     public function testNoCurlExceptions()
     {
+        global $USE_CLIENT_STREAM;
+        if (isset($USE_CLIENT_STREAM)) {
+            $this->markTestSkipped('Skipping curl exception test');
+        }
         Helper::setUpWithoutCURLExceptions();
 
         ParseClient::setServerURL('http://404.example.com', 'parse');
@@ -686,7 +665,59 @@ class ParseClientTest extends TestCase
 
         ParseClient::setServerURL('http://___uh___oh___.com', 'parse');
         $health = ParseClient::getServerHealth();
-        $this->assertTrue(isset($health['error']));
-        $this->assertTrue(isset($health['error_message']));
+
+        global $USE_CLIENT_STREAM;
+        if (!isset($USE_CLIENT_STREAM)) {
+            $this->assertTrue(isset($health['error']));
+            $this->assertTrue(isset($health['error_message']));
+        }
+    }
+
+    /**
+     * @group test-http-options
+     */
+    public function testCurlHttpOptions()
+    {
+        if (function_exists('curl_init')) {
+            ParseClient::setHttpClient(new ParseCurlHttpClient());
+            ParseClient::setServerURL('https://localhost:1338', 'parse');
+            ParseClient::setHttpOptions([
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_PINNEDPUBLICKEY => 'sha256//Oz+R70/uIv0irdBWc7RNPyCGeZNbN+CBiPLjJxXWigg=',
+                CURLOPT_SSLCERT => dirname(__DIR__).'/keys/client.crt',
+                CURLOPT_SSLKEY => dirname(__DIR__).'/keys/client.key',
+            ]);
+            $health = ParseClient::getServerHealth();
+
+            $this->assertNotNull($health);
+            $this->assertEquals($health['status'], 200);
+            $this->assertEquals($health['response']['status'], 'ok');
+            Helper::setServerURL();
+        }
+    }
+
+    /**
+     * @group test-http-options
+     */
+    public function testStreamHttpOptions()
+    {
+        ParseClient::setHttpClient(new ParseStreamHttpClient());
+        ParseClient::setServerURL('https://localhost:1338', 'parse');
+        ParseClient::setHttpOptions([
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true,
+                'local_cert' => dirname(__DIR__).'/keys/client.crt',
+                'local_pk' => dirname(__DIR__).'/keys/client.key',
+                'peer_fingerprint' => '29F36676EFA0CA18B5B571C6144580044CB289C2',
+            ]
+        ]);
+        $health = ParseClient::getServerHealth();
+
+        $this->assertNotNull($health);
+        $this->assertEquals($health['status'], 200);
+        $this->assertEquals($health['response']['status'], 'ok');
+        Helper::setServerURL();
     }
 }

@@ -12,7 +12,8 @@ Route::get('/', function () {
 
 // مسارات المصادقة
 Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login'])->name('login.submit');
+Route::post('login', [LoginController::class, 'login'])->name('login.post');
+Route::get('login-submit', [LoginController::class, 'login'])->name('login.submit');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
 // مسارات لوحة التحكم المحمية

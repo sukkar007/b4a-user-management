@@ -179,7 +179,7 @@ class ParseCurlHttpClient implements ParseHttpable
 
         if ($method == "GET" && !empty($data)) {
             // handle get
-            $url .= '?'.http_build_query($data, null, '&');
+            $url .= '?'.http_build_query($data, '', '&');
         } elseif ($method == "POST") {
             // handle post
             $this->parseCurl->setOptionsArray(array(
@@ -304,6 +304,18 @@ class ParseCurlHttpClient implements ParseHttpable
     {
         // name of a file holding one or more certificates to verify the peer with
         $this->parseCurl->setOption(CURLOPT_CAINFO, $caFile);
+    }
+
+    /**
+     * Sets multiple curl options
+     * https://www.php.net/manual/en/function.curl-setopt.php
+     *
+     * @param array $options    Array of options to set
+     * @throws ParseException
+     */
+    public function setHttpOptions($options)
+    {
+        $this->parseCurl->setOptionsArray($options);
     }
 
     /**

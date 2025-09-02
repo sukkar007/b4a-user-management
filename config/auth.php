@@ -38,7 +38,7 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'parse_users',
+            'provider' => 'users',
         ],
     ],
 
@@ -60,10 +60,16 @@ return [
     */
 
     'providers' => [
-        'parse_users' => [
-            'driver' => 'parse',
+        'users' => [
+            'driver' => 'custom',
             'model' => App\Models\ParseUser::class,
+            'provider' => App\Providers\ParseUserProvider::class,
         ],
+
+        // 'users' => [
+        //     'driver' => 'database',
+        //     'table' => 'users',
+        // ],
     ],
 
     /*
@@ -87,7 +93,7 @@ return [
 
     'passwords' => [
         'users' => [
-            'provider' => 'parse_users',
+            'provider' => 'users',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
@@ -108,4 +114,3 @@ return [
     'password_timeout' => 10800,
 
 ];
-
