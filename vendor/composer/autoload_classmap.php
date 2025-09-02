@@ -6,8 +6,11 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
+    'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Admin\\UserController' => $baseDir . '/app/Http/Controllers/Admin/UserController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
+    'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Models\\ParseUser' => $baseDir . '/app/Models/ParseUser.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\ParseUserProvider' => $baseDir . '/app/Providers/ParseUserProvider.php',

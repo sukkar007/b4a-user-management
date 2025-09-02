@@ -3,7 +3,7 @@
         'name' => 'laravel/b4a-user-management',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '348ee9701ea4ac0b860df91a431d781c1e64ddbc',
+        'reference' => '55488722a4db60472e0605e12eafc7ba28bd7611',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -328,7 +328,7 @@
         'laravel/b4a-user-management' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '348ee9701ea4ac0b860df91a431d781c1e64ddbc',
+            'reference' => '55488722a4db60472e0605e12eafc7ba28bd7611',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
